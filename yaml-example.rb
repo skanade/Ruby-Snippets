@@ -11,3 +11,6 @@ end
 p = YAML.load_file(yaml_file)
 
 puts p
+
+puts p['Foo']
+puts p['Foo Bar']
