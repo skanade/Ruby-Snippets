@@ -4,18 +4,24 @@ require 'yaml'
 
 options = {}
 opt_parser = OptionParser.new do |opts|
-  opts.on("-f CSVFILE", "--file CSVFILE") do |file|
-    options[:file] = file
+  opts.on("-y HEADER_COLUMNS_YML", "--yml HEADER_COLUMNS_YML", "YML with header mappings" ) do |file|
+    options[:headers_yml] = file
   end
-  opts.on("-y HEADER_COLUMNS_YAML", "--yaml HEADER_COLUMNS_YAML") do |file|
-    options[:headers_yaml] = file
-  end
+  executable_name = File.basename($PROGRAM_NAME)
+  opts.banner = "Usage: #{executable_name} [options] csv_filename"
 end
 
 opt_parser.parse!
-file = options[:file]
-headers_yaml = options[:headers_yaml]
-@headers = YAML.load_file(headers_yaml)
+if ARGV.empty?
+  puts "Error: you must provide a csv_filename"
+  puts
+  puts opt_parser.help
+else
+  file = ARGV[0]
+end
+
+headers_yml = options.fetch(:headers_yml, 'table_foo.yml')
+@headers = YAML.load_file(headers_yml)
 
 def header_column_name(column)
   column = column.strip
@@ -26,7 +32,7 @@ end
 
 table_name = File.basename(file, File.extname(file))
 #puts options.inspect
-table = CSV.read(options[:file], headers: true)
+table = CSV.read(file, headers: true)
 table.headers.each_with_index do |column,index|
   header_col_name = header_column_name(column)
   print header_col_name

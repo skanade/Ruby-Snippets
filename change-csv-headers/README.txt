@@ -1,3 +1,5 @@
-Example:
+Examples:
 
-ruby change-csv-headers.rb -f table_foo_data.txt -y table_foo.yml
+ruby change-csv-headers.rb table_foo_data.txt
+
+ruby change-csv-headers.rb table_foo_data.txt -y table_foo.yml
