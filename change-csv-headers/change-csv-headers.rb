@@ -16,6 +16,7 @@ if ARGV.empty?
   puts "Error: you must provide a csv_filename"
   puts
   puts opt_parser.help
+  exit 1
 else
   file = ARGV[0]
 end
