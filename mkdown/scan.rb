@@ -37,6 +37,8 @@ class LineTokens
       result = bullet_end_tag(previous_line_num_bullets)
     end
 
+    skip_first_token = true
+
     case @tokens[0].type
     when :H1
       result = "<h1>"
@@ -67,9 +69,11 @@ class LineTokens
       end
       result = "#{result}<li>"
       end_tag = "</li>"
+    when :TEXT
+      skip_first_token = false 
     end
     @tokens.each_with_index do |token, i|
-      next if i == 0
+      next if skip_first_token and i == 0
       result = "#{result}#{token.value}"
     end
     result = "#{result}#{end_tag}"
@@ -163,6 +167,7 @@ class LineTokens
     add_token(:TEXT, value)
   end
   def add_token(type, value)
+    #puts "add_token: #{type}  #{value}"
     token = Token.new(type, value)
     @tokens << token
   end
