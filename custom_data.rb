@@ -1,5 +1,16 @@
 require 'csv'
 
+# Note: these set of classes are for reading in CSV such as below with the 4 columns:
+# * First
+# * Last
+# * Age
+# * Occupation
+#
+# Example:
+# First,Last,Age,Occupation
+# John,Smith,60,Engineer
+# David,Smith,20,Doctor
+
 class Key
   attr_accessor :first, :last
 
