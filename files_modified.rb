@@ -3,9 +3,22 @@
 #
 root_dir = ARGV.shift
 year = ARGV.shift.to_i
+ignore_dir = ARGV.shift
+ignore_dirs = Array.new
+if ignore_dir
+  ignore_dirs = ignore_dir.split(",")
+end
+
+def reject_file(f, ignore_dirs)
+  ignore_dirs.each do |ignore_dir|
+    return true if f =~ /#{ignore_dir}/
+  end
+  return true if File.directory?(f)
+  return false
+end
 
 # find files in root directory & sub directories
-files = Dir.glob("#{root_dir}/**/*").reject{ |f| File.directory?(f) }
+files = Dir.glob("#{root_dir}/**/*").reject{ |f| reject_file(f, ignore_dirs) }
 
 file_extensions = Hash.new
 
