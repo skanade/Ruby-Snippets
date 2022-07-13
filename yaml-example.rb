@@ -1,5 +1,5 @@
 require 'yaml'
-# test
+
 hash = { 'Foo' => 'foo',
          'Foo Bar' => 'foo_bar' }
 
