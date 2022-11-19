@@ -1,6 +1,6 @@
 # Demonstrates use of clipboard gem below:
 # * https://github.com/janlelis/clipboard
-#
+# 
 require 'clipboard'
 
 num_seconds = ARGV.shift || 5
