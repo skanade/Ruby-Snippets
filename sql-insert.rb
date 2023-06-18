@@ -6,6 +6,7 @@ class String
     self.to_i.to_s == self
   end
 end
+# another comment
 
 options = {}
 opt_parser = OptionParser.new do |opts|
